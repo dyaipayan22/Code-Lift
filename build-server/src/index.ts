@@ -16,9 +16,8 @@ const PROJECT_ID = process.env.PROJECT_ID;
 
 async function init() {
   console.log('Executing script');
-  const outDirPath = path.join(__dirname, 'output');
-
-  const p = exec(`cd ${outDirPath} && npm install && npm run build`);
+  const outDirPath = path.join('/', 'app', 'output');
+  const p = exec(`npm install && npm run build`, { cwd: outDirPath });
 
   p.stdout?.on('data', function (data) {
     console.log(data.toString());
@@ -30,8 +29,7 @@ async function init() {
 
   p.on('close', async function () {
     console.log('Build complete');
-    const distFolderPath = path.join(__dirname, 'output', 'dist');
-    console.log(distFolderPath);
+    const distFolderPath = path.join(outDirPath, 'dist');
     const distFolderContents = fs.readdirSync(distFolderPath, {
       recursive: true,
     });
@@ -44,7 +42,7 @@ async function init() {
       console.log(`Uploading ${file}`);
 
       const command = new PutObjectCommand({
-        Bucket: '',
+        Bucket: process.env.S3_BUCKET_NAME as string,
         Key: `__outputs/${PROJECT_ID}/${file}`,
         Body: fs.createReadStream(filePath),
         ContentType: mime.lookup(filePath).toString(),

@@ -16,7 +16,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run server
 
 RUN chmod +x /app/src/main.sh
 RUN chmod +x /app/build/index.js
