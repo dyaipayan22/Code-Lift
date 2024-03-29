@@ -10,17 +10,18 @@ datasource db {
 }
 
 model User{
-  id          Int     @id @default(autoincrement())
-  username    String
-  email       String  @unique
-  password    String
+  id          String      @id @unique
+  username    String      @unique
+  displayName String
+  email       String?     
+  image       String?
   deployments Deployments[]
 }
 
 model Deployments{
-  id          Int     @id @default(autoincrement())
-  githubUrl   String  @unique
+  id          Int         @id @default(autoincrement())
+  gitUrl      String      @unique
   status      Boolean
-  userId      Int
-  user        User    @relation(fields: [userId], references: [id])
+  userId      String      
+  user        User        @relation(fields: [userId], references: [id])
 }

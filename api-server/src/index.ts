@@ -1,9 +1,9 @@
-import express from 'express';
+import dotenv from 'dotenv';
 
-const app = express();
+dotenv.config({ path: './.env' });
 
-app.use(express.json());
+import app from './app';
 
-app.post('/project', async (req, res) => {
-  const { githubUrl } = req.body;
-});
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => console.log(`Server listening on PORT ${PORT}`));
