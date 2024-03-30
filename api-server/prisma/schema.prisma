@@ -20,8 +20,7 @@ model User{
 
 model Deployments{
   id          Int         @id @default(autoincrement())
-  gitUrl      String      @unique
-  status      Boolean
+  url         String      @unique
   userId      String      
   user        User        @relation(fields: [userId], references: [id])
 }

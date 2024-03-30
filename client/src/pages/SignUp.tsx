@@ -10,7 +10,6 @@ const SignUp = () => {
 
   return (
     <div>
-      {/* <SignUpForm /> */}
       <Form
         title="Create Your Deployment Account"
         body={<SignUpForm />}

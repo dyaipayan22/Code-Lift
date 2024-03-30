@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import axios from './config/axios';
 import useAuth from './hooks/useAuth';
 import Dashboard from './pages/Dashboard';
+import Deploy from './pages/Deploy';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
         element: (
           <Auth>
             <Upload />
+          </Auth>
+        ),
+      },
+      {
+        path: '/deploy/:repoId',
+        element: (
+          <Auth>
+            <Deploy />
           </Auth>
         ),
       },

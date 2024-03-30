@@ -58,15 +58,17 @@ export const deployProject = asyncHandler(
     });
 
     await ecsClient.send(command);
+    const url = `http://${projectSlug}.localhost:5000`;
 
-    // await prisma.deployments.create({
-    //   data:{
-
-    //   }
-    // })
+    await prisma.deployments.create({
+      data: {
+        url,
+        userId: (req.user as any).id,
+      },
+    });
     return res.json({
       status: 'Queued',
-      data: { url: `http://${projectSlug}.localhost:8000` },
+      data: { url },
     });
   }
 );

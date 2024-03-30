@@ -106,6 +106,7 @@ export interface Owner {
 }
 
 export interface Repositories {
+  id: number;
   name: string;
   clone_url: string;
   visibility: string;
@@ -122,6 +123,7 @@ const Upload = () => {
     );
     setRepositories(
       data.map((repo: GithubRepository) => ({
+        id: repo.id,
         name: repo.name,
         clone_url: repo.clone_url,
         visibility: repo.visibility,
@@ -135,16 +137,20 @@ const Upload = () => {
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="flex flex-col gap-1.5">
-        <h1 className="font-medium text-4xl">Let's build your Project.</h1>
+      <div className="flex flex-col gap-1.5 md:text-center">
+        <h1 className="font-medium text-3xl lg:text-4xl">
+          Let's build your Project
+        </h1>
         <h3 className="text-sm text-primary/60">
-          Get started by importing a repository from your Github.
+          Get started by importing a repository from your Github
         </h3>
       </div>
       <div className="w-full flex justify-center">
-        <div className="border rounded-md w-2/3">
-          <div className="flex flex-col px-12 py-8 gap-4">
-            <h2 className="font-medium text-3xl">Import Git Repository</h2>
+        <div className="border rounded-md w-full md:w-4/5 lg:w-2/3">
+          <div className="flex flex-col p-4 lg:px-12 lg:py-8 gap-4">
+            <h2 className="font-medium text-2xl lg:text-3xl">
+              Import Git Repository
+            </h2>
             <RepositoriesContainer repositories={repositories} />
           </div>
         </div>
