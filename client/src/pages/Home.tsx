@@ -1,14 +1,21 @@
 import { Button } from '@/components/ui/button';
-import axios from '@/config/axios';
+import useAuth from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const handleClick = async () => {
-    await axios.get('/users', { withCredentials: true });
-  };
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  function handleClick() {
+    if (user) {
+      navigate('/upload');
+    }
+  }
+  //Go to sign in if not authenticated
   return (
-    <div>
-      Deployments made easy
-      <Button onClick={handleClick}> Get Details</Button>
+    <div className="flex flex-col gap-8">
+      <h1 className="text-6xl">Deploy Frontend Applications with a click</h1>
+      <Button onClick={handleClick}>Get Started</Button>
     </div>
   );
 };

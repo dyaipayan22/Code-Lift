@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
-import SignUp from './pages/SignUp';
 import Layout from './components/layout';
 import Upload from './pages/Upload';
 import Auth from './components/auth';
@@ -18,10 +17,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-      },
-      {
-        path: '/auth',
-        element: <SignUp />,
       },
       {
         path: '/dashboard',
@@ -61,7 +56,7 @@ function App() {
       }
     };
     getUser();
-  }, []);
+  }, [setUser]);
 
   return <RouterProvider router={router} />;
 }

@@ -20,6 +20,15 @@ router.get('/login/failed', (req, res) => {
   });
 });
 
+router.post('/logout', (req, res, next) => {
+  res.clearCookie('connect.sid');
+  req.logout(function (err) {
+    req.session.destroy(function (err) {
+      res.send();
+    });
+  });
+});
+
 router.get('/github', passport.authenticate('github', { scope: ['profile'] }));
 router.get(
   '/github/callback',

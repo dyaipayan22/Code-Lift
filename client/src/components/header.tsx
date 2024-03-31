@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ModeToggle } from './ui/mode-toggle';
 import useAuth from '@/hooks/useAuth';
@@ -12,9 +12,23 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import axios from '@/config/axios';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await axios.post('/auth/logout');
+    setUser(null);
+    navigate('/auth');
+  };
+
+  const handleGithubAuthentication = () => {
+    window.open('http://localhost:8000/auth/github', '_self');
+  };
+
   return (
     <div className="border-b">
       <div className="container mx-auto w-full flex items-center justify-between px-6 py-4">
@@ -31,21 +45,35 @@ const Header = () => {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="p-2 mt-1">
+              <DropdownMenuContent className="p-2 mt-2.5 mr-4">
                 <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <Link to={'/dashboard'}>Dashboard</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Logout
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link to={'/auth'}>
-              <Button>Sign In</Button>
-            </Link>
+            <>
+              <Button
+                variant={'secondary'}
+                onClick={handleGithubAuthentication}
+                className="hidden md:block w-full"
+              >
+                <div className="flex items-center">
+                  <GitHubLogoIcon className="mr-2 w-5 h-5" />
+                  Sign In with Github
+                </div>
+              </Button>
+              <Button size={'icon'} variant={'secondary'} className="md:hidden">
+                <GitHubLogoIcon className="w-5 h-5" />
+              </Button>
+            </>
           )}
         </div>
       </div>
