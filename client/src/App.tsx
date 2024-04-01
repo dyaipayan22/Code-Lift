@@ -8,6 +8,7 @@ import axios from './config/axios';
 import useAuth from './hooks/useAuth';
 import Dashboard from './pages/Dashboard';
 import Deploy from './pages/Deploy';
+import SignIn from './pages/SignIn';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/auth',
+        element: <SignIn />,
       },
       {
         path: '/dashboard',

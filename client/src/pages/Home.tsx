@@ -9,12 +9,19 @@ const Home = () => {
   function handleClick() {
     if (user) {
       navigate('/upload');
+    } else {
+      navigate('/auth');
     }
   }
-  //Go to sign in if not authenticated
+
   return (
-    <div className="flex flex-col gap-8">
-      <h1 className="text-6xl">Deploy Frontend Applications with a click</h1>
+    <div className="w-full flex flex-col justify-center items-center">
+      <div className="w-4/5 border min-h-full">
+        <h1 className="text-4xl grow">
+          Code Lift is the Frontend Cloud. Build and secure, a faster
+          personalized web.
+        </h1>
+      </div>
       <Button onClick={handleClick}>Get Started</Button>
     </div>
   );

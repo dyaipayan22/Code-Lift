@@ -13,7 +13,6 @@ import {
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import axios from '@/config/axios';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 const Header = () => {
   const { user, setUser } = useAuth();
@@ -23,10 +22,6 @@ const Header = () => {
     await axios.post('/auth/logout');
     setUser(null);
     navigate('/auth');
-  };
-
-  const handleGithubAuthentication = () => {
-    window.open('http://localhost:8000/auth/github', '_self');
   };
 
   return (
@@ -50,6 +45,9 @@ const Header = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
+                    <Link to={'/upload'}>Add Project</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
                     <Link to={'/dashboard'}>Dashboard</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout}>
@@ -59,21 +57,9 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <>
-              <Button
-                variant={'secondary'}
-                onClick={handleGithubAuthentication}
-                className="hidden md:block w-full"
-              >
-                <div className="flex items-center">
-                  <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                  Sign In with Github
-                </div>
-              </Button>
-              <Button size={'icon'} variant={'secondary'} className="md:hidden">
-                <GitHubLogoIcon className="w-5 h-5" />
-              </Button>
-            </>
+            <Link to={'/auth'}>
+              <Button variant={'secondary'}>Sign In</Button>
+            </Link>
           )}
         </div>
       </div>

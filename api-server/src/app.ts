@@ -14,7 +14,7 @@ const subscriber = new Redis(process.env.REDIS_SECRET_KEY || '');
 
 export const io = new Server({
   cors: {
-    origin: process.env.CLIENT_URI || '*',
+    origin: 'http://127.0.0.1:5173' || '*',
     credentials: true,
   },
 });
